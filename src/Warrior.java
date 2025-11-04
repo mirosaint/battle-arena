@@ -1,6 +1,6 @@
-/**
- * Wojownik zadaje stałe obrażenia bazowe.
- */
+
+// ** Wojownik zadaje stałe obrażenia bazowe.
+
 public class Warrior extends Character {
 
     public Warrior(String name) {
