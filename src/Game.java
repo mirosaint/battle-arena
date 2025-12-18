@@ -1,37 +1,32 @@
 import java.util.Scanner;
 
 public class Game {
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        boolean playAgain = true;
 
         System.out.println("=== BATTLE ARENA ===");
-        System.out.print("Podaj swoje imię: ");
-        String name = scanner.nextLine();
 
-        Player player = new Player(name);
-        player.selectCharacter();
+        while (playAgain) {
+            System.out.print("\nPodaj swoje imię: ");
+            String name = scanner.nextLine();
 
-        Enemy enemy = new Enemy("Goblin");
+            Player player = new Player(name);
+            player.selectCharacter();
 
-        System.out.println("\nRozpoczyna się walka " + player.getCharacter().getName() +
-                " vs " + enemy.getName() + "!\n");
+            Enemy enemy = GameUtils.generateRandomEnemy();
+            Battle battle = new Battle(player.getCharacter(), enemy);
+            battle.start();
 
-        while (player.getCharacter().isAlive() && enemy.isAlive()) {
-            System.out.println("Naciśnij ENTER, aby zaatakować.");
-            scanner.nextLine();
+            GameUtils.incrementGamesPlayed();
 
-            player.getCharacter().attack(enemy);
-            if (!enemy.isAlive()) {
-                System.out.println("Pokonałeś przeciwnika!");
-                break;
-            }
-
-            enemy.attack(player.getCharacter());
-            if (!player.getCharacter().isAlive()) {
-                System.out.println("Zostałeś pokonany!");
-            }
+            System.out.println("\nRozegrane gry: " + GameUtils.gamesPlayed);
+            System.out.print("Czy chcesz zagrać ponownie? (t/n): ");
+            playAgain = scanner.nextLine().equalsIgnoreCase("t");
         }
 
-        System.out.println("\n=== KONIEC GRY ===");
+        System.out.println("\nDziękujemy za grę!");
     }
 }
+
