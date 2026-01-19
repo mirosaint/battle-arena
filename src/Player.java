@@ -14,23 +14,37 @@ public class Player {
 
     public void selectCharacter() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Wybierz klasę postaci:");
-        System.out.println("1. Wojownik");
-        System.out.println("2. Mag");
-        System.out.println("3. Łucznik");
+        int choice = -1;
 
-        int choice = scanner.nextInt();
-        switch (choice) {
-            case 1 -> character = new Warrior(playerName);
-            case 2 -> character = new Mage(playerName);
-            case 3 -> character = new Archer(playerName);
-            default -> {
-                System.out.println("Nieprawidłowy wybór, wybrano Wojownika.");
-                character = new Warrior(playerName);
+        System.out.println("Wybierz swoją postać:");
+        System.out.println("1 - Warrior");
+        System.out.println("2 - Mage");
+        System.out.println("3 - Archer");
+
+        while (true) {
+            try {
+                System.out.print("Twój wybór (1-3): ");
+                choice = scanner.nextInt();
+
+                if (choice >= 1 && choice <= 3) {
+                    break;
+                } else {
+                    System.out.println("❌ Błąd! Musisz wybrać liczbę od 1 do 3.");
+                }
+
+            } catch (Exception e) {
+                System.out.println("❌ Błąd! Musisz wpisać liczbę.");
+                scanner.nextLine();
             }
         }
 
-        System.out.println("Wybrałeś klasę: " + character.getClass().getSimpleName());
+        switch (choice) {
+            case 1 -> character = new Warrior("Warrior");
+            case 2 -> character = new Mage("Mage");
+            case 3 -> character = new Archer("Archer");
+        }
+
+        System.out.println("✅ Wybrałeś postać: " + character.getName());
     }
 
     public Character getCharacter() {

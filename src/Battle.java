@@ -34,11 +34,19 @@ public class Battle {
         System.out.println("=== KONIEC WALKI ===");
     }
 
-    private void playerTurn() {
-        System.out.println("\nTwoja tura (ENTER aby zaatakować)");
-        scanner.nextLine();
+    public void playerTurn() {
+        System.out.println("\nTwoja tura!");
+        System.out.println("Naciśnij ENTER, aby zaatakować...");
+
+        try {
+            scanner.nextLine(); // czeka na ENTER
+        } catch (Exception e) {
+            System.out.println("Błąd wejścia.");
+        }
+
         player.attack(enemy);
     }
+
 
     private void enemyTurn() {
         System.out.println("\nTura przeciwnika!");
